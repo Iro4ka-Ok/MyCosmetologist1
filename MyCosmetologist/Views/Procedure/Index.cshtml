@@ -1,0 +1,34 @@
+﻿@model IEnumerable<MyCosmetologist.Models.Procedure>
+@{
+    ViewData["Title"] = "Catalog of Procedures";
+    //Layout = null;
+}
+
+<h1>Procedure</h1>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Список процедур</title>
+</head>
+<body>
+    <table class="table-condensed">
+        <tr>
+            <td>Назва: </td>
+            @*<td>Матеріал: </td>*@
+            <td>Ціна: </td>
+            <td></td>
+        </tr>
+        @foreach (var procedure in Model)
+        {
+        <tr>
+            <td>@procedure.NameProcedure</td>
+            @*<td>@procedure.MaterialProcedury</td>*@
+            <td>@procedure.Price</td>
+            <td><a href="~/Procedure/Payment/@procedure.Id"> SELECT </a></td>
+        </tr>
+        }
+    </table>
+</body>
+</html>
+
