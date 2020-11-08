@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MyCosmetologist.Models;   // пространство имен моделей
 using Microsoft.EntityFrameworkCore; // пространство имен EntityFramework
+using MyCosmetologist.Context;
 
 namespace MyCosmetologist
 {
@@ -29,7 +30,7 @@ namespace MyCosmetologist
             // получаем строку подключения из файла конфигурации
             string connection = Configuration.GetConnectionString("DefaultConnection");
             // добавляем контекст ProcedureContext в качестве сервиса в приложение
-            services.AddDbContext<ProcedureContext>(options => options.UseSqlServer(connection));
+            services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(connection));
             services.AddDbContext<AplicationContext>(options => options.UseSqlServer(connection));
 
             services.AddControllersWithViews();

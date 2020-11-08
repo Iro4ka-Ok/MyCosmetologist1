@@ -1,8 +1,8 @@
 ﻿CREATE TABLE [dbo].[Deposits]
 (
 	[Id] INT NOT NULL PRIMARY KEY, 
-    [CustomerId] INT NOT NULL, 
-    [ProcedureId] INT NOT NULL, 
+    [CustomerId] INT NULL, 
+    [ProcedureId] INT NULL, 
     [Deposite] MONEY NULL, 
-    [Comment] NVARCHAR(MAX) NOT NULL
+    [Comment] NVARCHAR(MAX) NULL
 )

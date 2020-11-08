@@ -84,4 +84,39 @@
     <Property Name="ParentElementType" Value="SqlSchema" />
     <Property Name="NewName" Value="[ProductCategory]" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="1cde63ff-aea0-402f-924f-0c7dba65b5a5" ChangeDateTime="11/02/2020 16:51:45">
+    <Property Name="ElementName" Value="[dbo].[Records].[Coment]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Records]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Comment" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="3d5b2251-468a-4f57-9319-c3074298fc00" ChangeDateTime="11/08/2020 17:01:26">
+    <Property Name="ElementName" Value="[dbo].[Procedures].[ProcedureCategoryId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Procedures]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="CategoryId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="438fb060-2ce7-4ee3-8570-782f3d9ba90a" ChangeDateTime="11/08/2020 18:34:58">
+    <Property Name="ElementName" Value="[dbo].[Procedures].[CategoryId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Procedures]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="CategoryProcedureId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="47a853f1-b3b2-4095-8350-32148598a46f" ChangeDateTime="11/08/2020 18:35:16">
+    <Property Name="ElementName" Value="[dbo].[Procedures].[CategoryProcedureId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Procedures]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="CategoryProcedyreId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="80c6d9c7-ce5b-441b-b323-397bf6faa912" ChangeDateTime="11/08/2020 20:14:06">
+    <Property Name="ElementName" Value="[dbo].[Orders].[OrderId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Orders]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Id" />
+  </Operation>
 </Operations>

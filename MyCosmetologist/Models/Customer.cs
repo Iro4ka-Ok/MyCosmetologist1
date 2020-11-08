@@ -14,18 +14,19 @@ namespace MyCosmetologist.Models
         public string Name { get; set; }
         //[Required]
         //[Display(Name = "Surname")]
-        public string SurName { set; get; }
+        public string SurName { get; set; }
         //[Required]
         //[Display(Name = "Email")]
         //[EmailAddress(ErrorMessage = "Некорректный адрес")]
-        public string Email { set; get; }
+        public string Email { get; set; }
         //[Required]
         //[Display(Name = "Phone")]
-        public string Phone { set; get; }
+        public string Phone { get; set; }
         //[Required]
         //[DataType(DataType.Date)]
         //[DisplayFormat(DataFormatString = "{0:dd'/'MM'/'yyyy}", ApplyFormatInEditMode = true)]
         //[Display(Name = "Date Of Birth")]
         public DateTime BirthDate { get; set; }
+        public string Gender { get; set; }
     }
 }

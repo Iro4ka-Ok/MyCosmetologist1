@@ -69,8 +69,8 @@
     <Build Include="dbo\Tables\Warehouse.sql" />
     <Build Include="dbo\Tables\Credits.sql" />
     <Build Include="dbo\Tables\Deposits.sql" />
-    <Build Include="dbo\Tables\ProductCategory.sql" />
-    <Build Include="dbo\Tables\ProcedureCategory.sql" />
+    <Build Include="dbo\Tables\ProductCategorys.sql" />
+    <Build Include="dbo\Tables\CategoriesProcedure.sql" />
     <Build Include="dbo\Tables\Shoping.sql" />
     <Build Include="dbo\Tables\Paids.sql" />
   </ItemGroup>

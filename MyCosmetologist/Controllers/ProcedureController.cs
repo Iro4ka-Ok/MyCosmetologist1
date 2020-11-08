@@ -3,40 +3,68 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using MyCosmetologist.Context;
 using MyCosmetologist.Models;
+using MyCosmetologist.ViewModel;
 
 namespace MyCosmetologist.Controllers
 {
     public class ProcedureController : Controller
     {
-        private ProcedureContext db;
+        private DatabaseContext db;
 
-        public ProcedureController(ProcedureContext context)
+        public ProcedureController(DatabaseContext context)
         {
             db = context;
         }
-        public IActionResult Index()
+        // GET: Procedures
+       public IActionResult Index()
         {
-            return View(db.Procedures.ToList());
+            ViewBag.CategoryProcedyreId = new SelectList(db.CategoriesProcedure, "Id", "Name");
+            var procedures = db?.Procedures?.
+                Include(a => a.CategoryProcedyre_).AsEnumerable().
+                Select(s => new ProcedureViewModel(s)).ToList() ?? new List<ProcedureViewModel>();
+
+            return View(procedures);
         }
-        [HttpGet]
-        public IActionResult Payment(int? id)
+        /*public async Task<IActionResult> Index()
         {
-            if (id == null)
+            return View(await db.Procedures.ToListAsync());
+        }*/
+
+        // GET: Procedure/Create
+        public ActionResult CreateProcedure()
+        {
+            ViewBag.CategoryProcedyreId = new SelectList(db.CategoriesProcedure, "Id", "Name");
+            ProcedureViewModel viewModel = new ProcedureViewModel();
+            return View(viewModel);
+        }
+        // POST: Procedure/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateProcedure([Bind("Id,NameProcedure,Preparation,Price,CategoryProcedyreId")] ProcedureViewModel procedureViewModel)
+        {
+            Procedure procedure = null;
+            if (ModelState.IsValid)
             {
+                procedure = new Procedure()
+                {
+                    Id = procedureViewModel.Id,
+                    NameProcedure = procedureViewModel.NameProcedure,
+                    Preparation = procedureViewModel.Preparation,
+                    Price = procedureViewModel.Price,
+                    CategoryProcedyreId = procedureViewModel.CategoryProcedyreId
+                };
+
+                db.Procedures.Add(procedure);
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.CategoryProcedyreId = new SelectList(db.CategoriesProcedure, "Id", "Name");
+            return View(procedureViewModel);
+        }
 
-            ViewBag.ProcedureId = id;
-            return View();
-        }
-        [HttpPost]
-        public string Payment(Order order)
-        {
-            db.Orders.Add(order);
-            // зберігаємо в базі всі зміни
-            db.SaveChanges();
-            return "Дякуємо, " + order.User + ", за візит!";
-        }
     }
 }

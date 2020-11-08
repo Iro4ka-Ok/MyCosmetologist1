@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using MyCosmetologist.Context;
 using MyCosmetologist.Models;
 
 namespace MyCosmetologist
@@ -22,7 +23,7 @@ namespace MyCosmetologist
 
                 try
                 {
-                    var context = services.GetRequiredService<ProcedureContext>();
+                    var context = services.GetRequiredService<DatabaseContext>();
                     SampleData.Initialize(context);
                 }
                 catch (Exception ex)

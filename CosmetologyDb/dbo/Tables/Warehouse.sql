@@ -2,10 +2,10 @@
 (
 	[Id] INT NOT NULL PRIMARY KEY, 
     [Name] NVARCHAR(MAX) NULL, 
-    [Value] INT NULL, 
+    [Value] DECIMAL NULL, 
     [PriceFirst] MONEY NULL, 
     [PriceLast] MONEY NULL, 
-    [Quantity] DECIMAL NULL, 
+    [Quantity] INT NULL, 
     [ProductCategoryId] INT NULL, 
     [ExpirationDate] DATE NULL
 )

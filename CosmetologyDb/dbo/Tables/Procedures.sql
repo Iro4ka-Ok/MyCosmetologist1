@@ -3,7 +3,7 @@
     [NameProcedure]     NVARCHAR (MAX) NULL,
     [Preparation] NVARCHAR (MAX) NULL,
     [Price]             INT            NULL,
-    [ProcedureCategoryId] INT NULL, 
+    [CategoryProcedyreId] INT NULL, 
     CONSTRAINT [PK_Procedures] PRIMARY KEY CLUSTERED ([Id] ASC)
 );
 

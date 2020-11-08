@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MyCosmetologist.Context;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,7 +8,7 @@ namespace MyCosmetologist.Models
 {
     public class SampleData
     {
-        public static void Initialize(ProcedureContext context)
+        public static void Initialize(DatabaseContext context)
         {
             if (!context.Procedures.Any())
             {
@@ -15,19 +16,19 @@ namespace MyCosmetologist.Models
                     new Procedure
                     {
                         NameProcedure = "First Procedure",
-                        MaterialProcedury = "Qwerty 1",
+                        Preparation = "Qwerty 1",
                         Price = 600
                     },
                     new Procedure
                     {
                         NameProcedure = "Second Procedure",
-                        MaterialProcedury = "Qwerty 2",
+                        Preparation = "Qwerty 2",
                         Price = 550
                     },
                     new Procedure
                     {
                         NameProcedure = "Third Procedure",
-                        MaterialProcedury = "Qwerty 3",
+                        Preparation = "Qwerty 3",
                         Price = 500
                     }
                 );

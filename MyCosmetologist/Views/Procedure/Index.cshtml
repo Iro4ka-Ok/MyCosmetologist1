@@ -1,34 +1,56 @@
-﻿@model IEnumerable<MyCosmetologist.Models.Procedure>
+﻿@model IEnumerable<MyCosmetologist.ViewModel.ProcedureViewModel>
+
 @{
-    ViewData["Title"] = "Catalog of Procedures";
-    //Layout = null;
+    ViewData["Title"] = "Index";
 }
 
-<h1>Procedure</h1>
+    <h1>Усі процедури</h1>
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Список процедур</title>
-</head>
-<body>
-    <table class="table-condensed">
+    <p>
+        <a asp-action="Create">Створити Процедуру</a>
+        @* @Html.ActionLink("Create New Procedure", "Create", null, new { @class = "btn btn-primary", style = "margin: 3px" })*@
+        <a style="margin: 3px" class="btn btn-primary" href="/Procedure/Create">Створити Процедуру</a>
+        <a style="margin: 3px" class="btn btn-primary" href="/CategoryProcedure/Create">Створити Категорію</a>
+    </p>
+<table class="table">
+    <thead>
         <tr>
-            <td>Назва: </td>
-            @*<td>Матеріал: </td>*@
-            <td>Ціна: </td>
-            <td></td>
+            <th>
+                @Html.DisplayNameFor(model => model.NameProcedure)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Preparation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CategoryProcedyre_)
+            </th>
+            <th></th>
         </tr>
-        @foreach (var procedure in Model)
-        {
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
         <tr>
-            <td>@procedure.NameProcedure</td>
-            @*<td>@procedure.MaterialProcedury</td>*@
-            <td>@procedure.Price</td>
-            <td><a href="~/Procedure/Payment/@procedure.Id"> SELECT </a></td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NameProcedure)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Preparation)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryProcedyre_.Id)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
         </tr>
-        }
-    </table>
-</body>
-</html>
-
+}
+    </tbody>
+</table>

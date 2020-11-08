@@ -5,5 +5,5 @@
     [ProcedureId] INT NULL, 
     [DayRecord] DATE NULL, 
     [TimeRecord] DATETIME NULL, 
-    [Coment] NVARCHAR(MAX) NOT NULL
+    [Comment] NVARCHAR(MAX) NOT NULL
 )

@@ -9,9 +9,9 @@ namespace MyCosmetologist.Models
 {
     public class Person
     {
-        [Required (ErrorMessage = "Не вказано ім'я")]
+        /*[Required (ErrorMessage = "Не вказано ім'я")]
         [StringLength(50, MinimumLength = 3, ErrorMessage = "Довжина імені має бути від 3 до 50 символів")]
-        [Display(Name = "Ім'я")]
+        [Display(Name = "Ім'я")]*/
         public string Name { get; set; }
 
         [Required (ErrorMessage = "Не вказано електронну адресу")] //атрибут [required] - регулярное выражение для проверки адреса электронной почты 
