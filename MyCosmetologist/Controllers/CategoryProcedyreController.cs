@@ -27,20 +27,17 @@ namespace MyCosmetologist.Controllers
             var categories = db?.CategoriesProcedure?.AsEnumerable().Select(s => new CategoryProcedyreViewModel(s)).ToList() ?? new List<CategoryProcedyreViewModel>();
             return View(categories);
         }
-        /*public async Task<IActionResult> Index()
-        {
-            return View(await db.CategoriesProcedure.ToListAsync());
-        }*/
-        /*public ActionResult Details(int? id)
+        public ActionResult Details(int? id)
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                //return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return NotFound();
             }
             CategoryProcedyre category = db.CategoriesProcedure.Find(id);
             if (category == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
             CategoryProcedyreViewModel viewModel = new CategoryProcedyreViewModel()
             {
@@ -50,21 +47,21 @@ namespace MyCosmetologist.Controllers
                 Procedures = category.Procedures
             };
             return View(viewModel);
-        }*/
-
-        private ActionResult HttpNotFound()
-        {
-            throw new NotImplementedException();
         }
 
+        /*private ActionResult HttpNotFound()
+        {
+            throw new NotImplementedException();
+        }*/
+
+        // GET: Category/Create
         public ActionResult CreateCategoryProcedure()
         {
             CategoryProcedyreViewModel viewModel = new CategoryProcedyreViewModel();
             return View(viewModel);
         }
 
-
-        // POST: Procedure/Create
+        // POST: Category/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult CreateCategoryProcedure([Bind("Id,Name,Description")] CategoryProcedyreViewModel categoryViewModel)
@@ -83,7 +80,6 @@ namespace MyCosmetologist.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.CategoryProcedyreId = new SelectList(db.CategoriesProcedure, "Id", "Name");
             return View(categoryViewModel);
         }
     }

@@ -4,14 +4,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using MyCosmetologist.Context;
 using MyCosmetologist.Models;
 
 namespace MyCosmetologist.Controllers
 {
     public class CustomerController : Controller
     {
-        private AplicationContext db;
-        public CustomerController(AplicationContext context)
+        private DatabaseContext db;
+        public CustomerController(DatabaseContext context)
         {
             db = context;
         }

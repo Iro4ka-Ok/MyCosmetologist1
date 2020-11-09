@@ -23,16 +23,35 @@ namespace MyCosmetologist.Controllers
        public IActionResult Index()
         {
             ViewBag.CategoryProcedyreId = new SelectList(db.CategoriesProcedure, "Id", "Name");
-            var procedures = db?.Procedures?.
-                Include(a => a.CategoryProcedyre_).AsEnumerable().
+            var procedures = db?.Procedures?.Include(a => a.CategoryProcedyre_).AsEnumerable().
                 Select(s => new ProcedureViewModel(s)).ToList() ?? new List<ProcedureViewModel>();
 
             return View(procedures);
         }
-        /*public async Task<IActionResult> Index()
+
+        // GET: Procedure/Details
+        public ActionResult Details(int? id)
         {
-            return View(await db.Procedures.ToListAsync());
-        }*/
+            if(id == null)
+            {
+                //return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return NotFound();
+            }
+            Procedure procedure = db.Procedures.Find(id);
+            if(procedure == null)
+            {
+                return NotFound();
+            }
+            ProcedureViewModel viewModel = new ProcedureViewModel()
+            {
+                Id = procedure.Id,
+                NameProcedure = procedure.NameProcedure,
+                Preparation = procedure.Preparation,
+                Price = procedure.Price,
+                CategoryProcedyreId = procedure.CategoryProcedyreId
+            };
+            return View(viewModel);
+        }
 
         // GET: Procedure/Create
         public ActionResult CreateProcedure()
@@ -62,7 +81,7 @@ namespace MyCosmetologist.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.CategoryProcedyreId = new SelectList(db.CategoriesProcedure, "Id", "Name");
+            ViewBag.CategoryProcedyreId = new SelectList(db.CategoriesProcedure, "Id", "Name", procedure.CategoryProcedyreId);
             return View(procedureViewModel);
         }
 

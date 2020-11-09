@@ -24,6 +24,9 @@ namespace MyCosmetologist.Context
 
         public DbSet<MyCosmetologist.ViewModel.ProcedureViewModel> ProcedureViewModel { get; set; }
 
-        public DbSet<MyCosmetologist.ViewModel.CategoryProcedyreViewModel> CategoryProcedyreViewModel { get; set; }
+        //public DbSet<MyCosmetologist.ViewModel.ProcedureViewModel> ProcedureViewModel { get; set; }
+
+        //public DbSet<MyCosmetologist.ViewModel.CategoryProcedyreViewModel> CategoryProcedyreViewModel { get; set; }
+
     }
 }

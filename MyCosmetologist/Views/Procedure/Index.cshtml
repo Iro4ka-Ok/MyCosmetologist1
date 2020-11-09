@@ -4,14 +4,12 @@
     ViewData["Title"] = "Index";
 }
 
-    <h1>Усі процедури</h1>
+<h1>Усі Процедури</h1>
 
-    <p>
-        <a asp-action="Create">Створити Процедуру</a>
-        @* @Html.ActionLink("Create New Procedure", "Create", null, new { @class = "btn btn-primary", style = "margin: 3px" })*@
-        <a style="margin: 3px" class="btn btn-primary" href="/Procedure/Create">Створити Процедуру</a>
-        <a style="margin: 3px" class="btn btn-primary" href="/CategoryProcedure/Create">Створити Категорію</a>
-    </p>
+<p>
+    <a style="margin: 3px" class="btn btn-primary" href="~/Procedure/CreateProcedure">Створити Процедуру</a>
+    <a style="margin: 3px" class="btn btn-primary" href="~/CategoryProcedyre/CreateCategoryProcedure">Створити Категорію</a>
+</p>
 <table class="table">
     <thead>
         <tr>

@@ -29,9 +29,8 @@ namespace MyCosmetologist
             services.AddControllersWithViews();
             // получаем строку подключения из файла конфигурации
             string connection = Configuration.GetConnectionString("DefaultConnection");
-            // добавляем контекст ProcedureContext в качестве сервиса в приложение
+            // добавляем контекст DatabaseContext в качестве сервиса в приложение
             services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(connection));
-            services.AddDbContext<AplicationContext>(options => options.UseSqlServer(connection));
 
             services.AddControllersWithViews();
         }
