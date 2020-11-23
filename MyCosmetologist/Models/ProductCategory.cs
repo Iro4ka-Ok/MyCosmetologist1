@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MyCosmetologist.Models
 {
-    public class CategoryProcedyre
+    public class ProductCategory
     {
         [Key]
         public int Id { get; set; }
@@ -16,7 +16,6 @@ namespace MyCosmetologist.Models
 
         [StringLength(1000)]
         public string Description { get; set; }
-        public ICollection<Procedure> Procedures { get; set; }
-
+        //public ICollection<Product> Product { get; set; }
     }
 }

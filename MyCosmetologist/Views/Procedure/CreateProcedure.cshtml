@@ -17,17 +17,17 @@
             <form asp-action="CreateProcedure">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
-                    @Html.LabelFor(model => model.NameProcedure, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.EditorFor(model => model.NameProcedure, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.NameProcedure, "", new { @class = "text-danger" })
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="form-group">
-                    @Html.LabelFor(model => model.Preparation, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.LabelFor(model => model.Preparat, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.EditorFor(model => model.Preparation, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Preparation, "", new { @class = "text-danger" })
+                        @Html.EditorFor(model => model.Preparat, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Preparat, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="form-group">
@@ -38,20 +38,27 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    @Html.LabelFor(model => model.CategoryProcedyreId, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.LabelFor(model => model.ProcedureCategoryId, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.DropDownList("CategoryProcedyreId", null, htmlAttributes: new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.CategoryProcedyreId, "", new { @class = "text-danger" })
+                        @Html.DropDownList("ProcedureCategoryId", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.ProcedureCategoryId, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="form-group">
-                    <input type="submit" value="Create" class="btn btn-primary" />
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Create" class="btn btn-default" />
+                    </div>
                 </div>
             </form>
         </div>
     </div>
 }
 
+@*<div>
+        <a asp-action="Index">Back to List</a>
+    </div>*@
 <div>
-    <a asp-action="Index">Back to List</a>
+    @Html.ActionLink("Back to List", "Index", null, null, new { @class = "btn btn-primary" })
 </div>
+
+

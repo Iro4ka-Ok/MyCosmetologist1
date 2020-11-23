@@ -8,11 +8,9 @@ namespace MyCosmetologist.Models
     public class Deposit
     {
         public int Id { get; set; }
-        public int CustomerId { get; set; }
-        public int ProcedureId { get; set; }
-        public ushort Deposite { get; set; }
+        public ushort DepositeSum { get; set; }
         public string Comment { get; set; }
-        public Customer Customer { get; set; }
+        public Client Client { get; set; }
         public Procedure Procedure { get; set; }
     }
 }

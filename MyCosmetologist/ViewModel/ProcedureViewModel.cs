@@ -15,12 +15,12 @@ namespace MyCosmetologist.ViewModel
         [Required(ErrorMessage = "Не вказано ім'я")]
         [StringLength(250, MinimumLength = 3, ErrorMessage = "Довжина імені має бути від 3 і більше символів")]
         [Display(Name = "Ім'я")]
-        public string NameProcedure { get; set; }
+        public string Name { get; set; }
 
         [Required(ErrorMessage = "Не вказано препарат")]
         [StringLength(250, MinimumLength = 3, ErrorMessage = "Довжина імені має бути від 3 і більше символів")]
         [Display(Name = "Препарат")]
-        public string Preparation { get; set; }
+        public string Preparat { get; set; }
 
         [Display(Name = "Ціна")]
         public ushort Price { set; get; } // cej typ danyh(ushort) - schob cina ne byla vusoka i minycova
@@ -28,21 +28,21 @@ namespace MyCosmetologist.ViewModel
         // one to many (Category - Animal)
         [Required(ErrorMessage = "Не вказано категорію")]
         [Display(Name = "Категорія")]
-        public int CategoryProcedyreId { set; get; }
+        public int ProcedureCategoryId { set; get; }
 
         [DisplayName("Категорія")]
-        public virtual CategoryProcedyre CategoryProcedyre_ { get; set; }
+        public virtual ProcedureCategory ProcedureCategory { get; set; }
 
         public ProcedureViewModel() { }
 
         public ProcedureViewModel(Procedure procedure)
         {
             Id = procedure.Id;
-            NameProcedure = procedure.NameProcedure;
-            Preparation = procedure.Preparation;
+            Name = procedure.Name;
+            Preparat = procedure.Preparat;
             Price = procedure.Price;
-            CategoryProcedyreId = procedure.CategoryProcedyreId;
-            CategoryProcedyre_ = procedure.CategoryProcedyre_;
+            ProcedureCategoryId = procedure.ProcedureCategoryId;
+            ProcedureCategory = procedure.ProcedureCategory;
         }
     }
 }

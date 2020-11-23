@@ -12,11 +12,11 @@ using MyCosmetologist.ViewModel;
 
 namespace MyCosmetologist.Controllers
 {
-    public class CategoryProcedyreController : Controller
+    public class ProcedureCategoryController : Controller
     {
         private readonly DatabaseContext db;
 
-        public CategoryProcedyreController(DatabaseContext context)
+        public ProcedureCategoryController(DatabaseContext context)
         {
             db = context;
         }
@@ -24,7 +24,7 @@ namespace MyCosmetologist.Controllers
         // GET: category
         public IActionResult Index()
         {
-            var categories = db?.CategoriesProcedure?.AsEnumerable().Select(s => new CategoryProcedyreViewModel(s)).ToList() ?? new List<CategoryProcedyreViewModel>();
+            var categories = db?.ProcedureCategories?.AsEnumerable().Select(s => new ProcedureCategoryViewModel(s)).ToList() ?? new List<ProcedureCategoryViewModel>();
             return View(categories);
         }
         public ActionResult Details(int? id)
@@ -34,12 +34,12 @@ namespace MyCosmetologist.Controllers
                 //return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 return NotFound();
             }
-            CategoryProcedyre category = db.CategoriesProcedure.Find(id);
+            ProcedureCategory category = db.ProcedureCategories.Find(id);
             if (category == null)
             {
                 return NotFound();
             }
-            CategoryProcedyreViewModel viewModel = new CategoryProcedyreViewModel()
+            ProcedureCategoryViewModel viewModel = new ProcedureCategoryViewModel()
             {
                 Id = category.Id,
                 Name = category.Name,
@@ -57,26 +57,29 @@ namespace MyCosmetologist.Controllers
         // GET: Category/Create
         public ActionResult CreateCategoryProcedure()
         {
-            CategoryProcedyreViewModel viewModel = new CategoryProcedyreViewModel();
+            ProcedureCategoryViewModel viewModel = new ProcedureCategoryViewModel();
             return View(viewModel);
         }
 
         // POST: Category/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateCategoryProcedure([Bind("Id,Name,Description")] CategoryProcedyreViewModel categoryViewModel)
+        public ActionResult CreateCategoryProcedure([Bind("Id,Name,Description")] ProcedureCategoryViewModel categoryViewModel)
         {
-            CategoryProcedyre category = null;
+            ProcedureCategory category = null;
             if (ModelState.IsValid)
             {
-                category = new CategoryProcedyre()
+                if(category == null)
                 {
-                    Id = categoryViewModel.Id,
-                    Name = categoryViewModel.Name,
-                    Description = categoryViewModel.Description
-                };
+                    category = new ProcedureCategory()
+                    {
+                        Id = categoryViewModel.Id,
+                        Name = categoryViewModel.Name,
+                        Description = categoryViewModel.Description
+                    };
 
-                db.CategoriesProcedure.Add(category);
+                    db.ProcedureCategories.Add(category);
+                }
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

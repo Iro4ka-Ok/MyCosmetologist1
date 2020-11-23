@@ -9,10 +9,10 @@ using MyCosmetologist.Models;
 
 namespace MyCosmetologist.Controllers
 {
-    public class CustomerController : Controller
+    public class ClientController : Controller
     {
         private DatabaseContext db;
-        public CustomerController(DatabaseContext context)
+        public ClientController(DatabaseContext context)
         {
             db = context;
         }
@@ -22,7 +22,7 @@ namespace MyCosmetologist.Controllers
         }*/
         public async Task<IActionResult> Index()
         {
-            return View(await db.Customers.ToListAsync());
+            return View(await db.Clients.ToListAsync());
         }
         public IActionResult Create()
         {
@@ -30,9 +30,9 @@ namespace MyCosmetologist.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Customer customer)
+        public async Task<IActionResult> Create(Client customer)
         {
-            db.Customers.Add(customer);
+            db.Clients.Add(customer);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }

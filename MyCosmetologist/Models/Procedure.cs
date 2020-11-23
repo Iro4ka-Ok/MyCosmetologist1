@@ -12,13 +12,13 @@ namespace MyCosmetologist.Models
         [Key]
         public int Id { get; set; }
         [StringLength(250)]
-        public string NameProcedure { get; set; }
+        public string Name { get; set; }
         [StringLength(250)]
-        public string Preparation { get; set; }
+        public string Preparat { get; set; }
         public ushort Price { set; get; } //cej typ danyh(ushort) - schob cina ne byla vusoka i minycova
-        public int CategoryProcedyreId { set; get; }
+        public int ProcedureCategoryId { set; get; }
 
-        [ForeignKey("CategoryProcedyreId")]
-        public virtual CategoryProcedyre CategoryProcedyre_ { get; set; }
+        [ForeignKey("ProcedureCategoryId")]
+        public virtual ProcedureCategory ProcedureCategory { get; set; }
     }
 }

@@ -19,11 +19,12 @@ namespace MyCosmetologist.Controllers
         {
             db = context;
         }
-        // GET: Procedures
-       public IActionResult Index()
+
+       // GET: Procedures
+       public ActionResult Index()
         {
-            ViewBag.CategoryProcedyreId = new SelectList(db.CategoriesProcedure, "Id", "Name");
-            var procedures = db?.Procedures?.Include(a => a.CategoryProcedyre_).AsEnumerable().
+            ViewBag.ProceduCategoryreId = new SelectList(db.ProcedureCategories, "Id", "Name");
+            var procedures = db?.Procedures?.Include(a => a.ProcedureCategory).AsEnumerable().
                 Select(s => new ProcedureViewModel(s)).ToList() ?? new List<ProcedureViewModel>();
 
             return View(procedures);
@@ -45,10 +46,10 @@ namespace MyCosmetologist.Controllers
             ProcedureViewModel viewModel = new ProcedureViewModel()
             {
                 Id = procedure.Id,
-                NameProcedure = procedure.NameProcedure,
-                Preparation = procedure.Preparation,
+                Name = procedure.Name,
+                Preparat = procedure.Preparat,
                 Price = procedure.Price,
-                CategoryProcedyreId = procedure.CategoryProcedyreId
+                ProcedureCategoryId = procedure.ProcedureCategoryId
             };
             return View(viewModel);
         }
@@ -56,14 +57,14 @@ namespace MyCosmetologist.Controllers
         // GET: Procedure/Create
         public ActionResult CreateProcedure()
         {
-            ViewBag.CategoryProcedyreId = new SelectList(db.CategoriesProcedure, "Id", "Name");
+            ViewBag.ProcedureCategoryId = new SelectList(db.ProcedureCategories, "Id", "Name");
             ProcedureViewModel viewModel = new ProcedureViewModel();
             return View(viewModel);
         }
         // POST: Procedure/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateProcedure([Bind("Id,NameProcedure,Preparation,Price,CategoryProcedyreId")] ProcedureViewModel procedureViewModel)
+        public ActionResult CreateProcedure([Bind("Id,Name,Preparat,Price,ProcedureCategoryId")] ProcedureViewModel procedureViewModel)
         {
             Procedure procedure = null;
             if (ModelState.IsValid)
@@ -71,17 +72,17 @@ namespace MyCosmetologist.Controllers
                 procedure = new Procedure()
                 {
                     Id = procedureViewModel.Id,
-                    NameProcedure = procedureViewModel.NameProcedure,
-                    Preparation = procedureViewModel.Preparation,
+                    Name = procedureViewModel.Name,
+                    Preparat = procedureViewModel.Preparat,
                     Price = procedureViewModel.Price,
-                    CategoryProcedyreId = procedureViewModel.CategoryProcedyreId
+                    ProcedureCategoryId = procedureViewModel.ProcedureCategoryId
                 };
 
                 db.Procedures.Add(procedure);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.CategoryProcedyreId = new SelectList(db.CategoriesProcedure, "Id", "Name", procedure.CategoryProcedyreId);
+            ViewBag.ProcedureCategoryId = new SelectList(db.ProcedureCategories, "Id", "Name", procedure.ProcedureCategoryId);
             return View(procedureViewModel);
         }
 

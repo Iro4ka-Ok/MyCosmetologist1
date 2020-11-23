@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MyCosmetologist.ViewModel
 {
-    public class CategoryProcedyreViewModel
+    public class ProcedureCategoryViewModel
     {
         public int Id { get; set; }
 
@@ -24,8 +24,8 @@ namespace MyCosmetologist.ViewModel
 
         public ICollection<Procedure> Procedures { get; set; }
 
-        public CategoryProcedyreViewModel() { }
-        public CategoryProcedyreViewModel(CategoryProcedyre categoryProcedyre)
+        public ProcedureCategoryViewModel() { }
+        public ProcedureCategoryViewModel(ProcedureCategory categoryProcedyre)
         {
             Id = categoryProcedyre.Id;
             Name = categoryProcedyre.Name;

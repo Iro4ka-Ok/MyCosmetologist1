@@ -36,22 +36,22 @@ namespace MyCosmetologist.Models
                 context.Procedures.AddRange(
                     new Procedure
                     {
-                        NameProcedure = "First Procedure",
-                        Preparation = "Qwerty 1",
+                        Name = "First Procedure",
+                        Preparat = "Qwerty 1",
                         Price = 600,
                         //CategoryProcedyreId = 1
                     },
                     new Procedure
                     {
-                        NameProcedure = "Second Procedure",
-                        Preparation = "Qwerty 2",
+                        Name = "Second Procedure",
+                        Preparat = "Qwerty 2",
                         Price = 550,
                         //CategoryProcedyreId = 1
                     },
                     new Procedure
                     {
-                        NameProcedure = "Third Procedure",
-                        Preparation = "Qwerty 3",
+                        Name = "Third Procedure",
+                        Preparat = "Qwerty 3",
                         Price = 500,
                         //CategoryProcedyreId = 2
                     }

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace MyCosmetologist.Models
 {
-    public class Warehouse_
+    public class Product
     {
         public int Id { get; set; }
         public string Name { get; set; }

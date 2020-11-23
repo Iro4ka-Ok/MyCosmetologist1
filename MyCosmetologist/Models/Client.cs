@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MyCosmetologist.Models
 {
-    public class Customer
+    public class Client
     {
         public int Id { get; set; }
         //[Required]

@@ -5,14 +5,14 @@ using System.Threading.Tasks;
 
 namespace MyCosmetologist.Models
 {
-    public class Credit_
+    public class Credit
     {
         public int Id { get; set; }
-        public int CustomerId { get; set; }
+        public int ClientId { get; set; }
         public int ProcedureId { get; set; }
-        public ushort Credit { get; set; }
+        public ushort CreditSum { get; set; }
         public string Comment { get; set; }
-        public Customer Customer { get; set; }
+        public Client Client { get; set; }
         public Procedure Procedure { get; set; }
     }
 }
