@@ -66,23 +66,20 @@ namespace MyCosmetologist.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult CreateCategoryProcedure([Bind("Id,Name,Description")] ProcedureCategoryViewModel categoryViewModel)
         {
-            ProcedureCategory category = null;
             if (ModelState.IsValid)
             {
-                if(category == null)
+                ProcedureCategory category = new ProcedureCategory()
                 {
-                    category = new ProcedureCategory()
-                    {
-                        Id = categoryViewModel.Id,
-                        Name = categoryViewModel.Name,
-                        Description = categoryViewModel.Description
-                    };
+                    Id = categoryViewModel.Id,
+                    Name = categoryViewModel.Name,
+                    Description = categoryViewModel.Description
+                };
 
-                    db.ProcedureCategories.Add(category);
-                }
+                db.ProcedureCategories.Add(category);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
             return View(categoryViewModel);
         }
     }

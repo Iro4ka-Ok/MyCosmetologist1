@@ -15,7 +15,7 @@ namespace MyCosmetologist.Models
         public string Name { get; set; }
         [StringLength(250)]
         public string Preparat { get; set; }
-        public ushort Price { set; get; } //cej typ danyh(ushort) - schob cina ne byla vusoka i minycova
+        public decimal Price { set; get; }
         public int ProcedureCategoryId { set; get; }
 
         [ForeignKey("ProcedureCategoryId")]

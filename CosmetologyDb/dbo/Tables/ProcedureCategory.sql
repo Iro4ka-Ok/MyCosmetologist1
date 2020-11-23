@@ -1,6 +1,6 @@
-﻿CREATE TABLE [dbo].[ProcedureCategory]
-(
+﻿CREATE TABLE [dbo].[ProcedureCategory](
 	[Id] INT IDENTITY (1, 1) NOT NULL,
     [Name] NVARCHAR(MAX) NOT NULL, 
-    [Description] NCHAR(10) NOT NULL
-)
+    [Description] NVARCHAR(MAX) NOT NULL, 
+    CONSTRAINT [PK_ProcedureCategory] PRIMARY KEY NONCLUSTERED ([Id] ASC) 
+);

@@ -23,9 +23,9 @@ namespace MyCosmetologist.ViewModel
         public string Preparat { get; set; }
 
         [Display(Name = "Ціна")]
-        public ushort Price { set; get; } // cej typ danyh(ushort) - schob cina ne byla vusoka i minycova
+        public decimal Price { set; get; } // cej typ danyh(ushort) - schob cina ne byla vusoka i minycova
 
-        // one to many (Category - Animal)
+        // one to many (Category - Procedure)
         [Required(ErrorMessage = "Не вказано категорію")]
         [Display(Name = "Категорія")]
         public int ProcedureCategoryId { set; get; }

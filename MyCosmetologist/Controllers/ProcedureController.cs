@@ -23,7 +23,7 @@ namespace MyCosmetologist.Controllers
        // GET: Procedures
        public ActionResult Index()
         {
-            ViewBag.ProceduCategoryreId = new SelectList(db.ProcedureCategories, "Id", "Name");
+            ViewBag.ProcedureCategoryId = new SelectList(db.ProcedureCategories, "Id", "Name");
             var procedures = db?.Procedures?.Include(a => a.ProcedureCategory).AsEnumerable().
                 Select(s => new ProcedureViewModel(s)).ToList() ?? new List<ProcedureViewModel>();
 

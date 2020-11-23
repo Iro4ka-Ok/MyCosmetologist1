@@ -25,12 +25,12 @@ namespace MyCosmetologist.ViewModel
         public ICollection<Procedure> Procedures { get; set; }
 
         public ProcedureCategoryViewModel() { }
-        public ProcedureCategoryViewModel(ProcedureCategory categoryProcedyre)
+        public ProcedureCategoryViewModel(ProcedureCategory procedureCategory)
         {
-            Id = categoryProcedyre.Id;
-            Name = categoryProcedyre.Name;
-            Description = categoryProcedyre.Description;
-            Procedures = categoryProcedyre.Procedures;
+            Id = procedureCategory.Id;
+            Name = procedureCategory.Name;
+            Description = procedureCategory.Description;
+            Procedures = procedureCategory.Procedures;
         }
     }
 }
