@@ -34,10 +34,5 @@ namespace MyCosmetologist.Context
                 modelBuilder.Entity(entityType.ClrType).ToTable(entityType.ClrType.Name);
             }
         }
-        //public DbSet<MyCosmetologist.ViewModel.RecordViewModel> RecordViewModel { get; set; }
-        //public DbSet<MyCosmetologist.ViewModel.ClientViewModel> ClientViewModel { get; set; }
-        //public DbSet<MyCosmetologist.ViewModel.RecordViewModel> RecordViewModel { get; set; }
-        //public DbSet<MyCosmetologist.ViewModel.RecordViewModel> RecordViewModel { get; set; }
-        //public DbSet<MyCosmetologist.ViewModel.ClientViewModel> ClientViewModel { get; set; }
     }
 }
