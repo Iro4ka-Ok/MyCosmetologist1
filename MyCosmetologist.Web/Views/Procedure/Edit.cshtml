@@ -1,0 +1,45 @@
+﻿@model MyCosmetologist.Web.ViewModel.ProcedureViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Preparat" class="control-label"></label>
+                <input asp-for="Preparat" class="form-control" />
+                <span asp-validation-for="Preparat" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Price" class="control-label"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProcedureCategoryId" class="control-label"></label>
+                <select asp-for="ProcedureCategoryId" class="form-control" asp-items="ViewBag.ProcedureCategoryId"></select>
+                <span asp-validation-for="ProcedureCategoryId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-secondary" />
+                @Html.ActionLink("Back to List", "Index", null, null, new { @class = "btn btn-secondary" })
+            </div>
+        </form>
+    </div>
+</div>
+@*<div>
+    <a asp-action="Index" class = "btn btn-primary">Back to List</a>
+</div>*@
+
