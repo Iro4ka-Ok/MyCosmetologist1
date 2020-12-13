@@ -20,5 +20,11 @@ namespace MyCosmetologist.Models
 
         [ForeignKey("ProcedureCategoryId")]
         public virtual ProcedureCategory ProcedureCategory { get; set; }
+        public ICollection<Record> Records { get; set; }
+
+        public Procedure()
+        {
+            Records = new List<Record>();
+        }
     }
 }

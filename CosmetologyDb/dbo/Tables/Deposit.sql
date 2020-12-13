@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[Deposit]
 (
-	[Id] INT NOT NULL PRIMARY KEY, 
+	[Id] INT IDENTITY (1, 1) NOT NULL PRIMARY KEY, 
     [DepositSum] MONEY NOT NULL, 
     [Comment] NVARCHAR(MAX) NULL
 )

@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MyCosmetologist.Context;
 using MyCosmetologist.Models;
+using MyCosmetologist.ViewModel;
 
 namespace MyCosmetologist.Controllers
 {
@@ -16,80 +16,182 @@ namespace MyCosmetologist.Controllers
         {
             db = context;
         }
-        /*public IActionResult Index()
+        public ActionResult Index()
         {
-           return View();
-        }*/
-        public async Task<IActionResult> Index()
-        {
-            return View(await db.Clients.ToListAsync());
-        }
-        public IActionResult Create()
-        {
+            //var client = db?.Clients?.AsEnumerable().Select(s => new ClientViewModel(s)).ToList() ?? new List<ClientViewModel>();
+            //return View(client);
             return View();
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Create(Client customer)
+        // GET: Clients/Details
+        public ActionResult Details(int? id)
         {
-            db.Clients.Add(customer);
-            await db.SaveChangesAsync();
-            return RedirectToAction("Index");
-        }
-
-       /* public async Task<IActionResult> Details(int? id)
-        {
-            if (id != null)
+            if (id == null)
             {
-                Customer customer = await db.Customers.FirstOrDefaultAsync(c => c.Id == id);
-                if (customer != null)
-                    return View(customer);
+                //return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return NotFound();
             }
-            return NotFound();
-        }
-
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id != null)
+            Client client = db.Clients.Find(id);
+            if (client == null)
             {
-                Customer customer = await db.Customers.FirstOrDefaultAsync(p => p.Id == id);
-                if (customer != null)
-                    return View(customer);
+                return NotFound();
             }
-            return NotFound();
-        }
-        [HttpPost]
-        public async Task<IActionResult> Edit(Customer customer)
-        {
-            db.Customers.Update(customer);
-            await db.SaveChangesAsync();
-            return RedirectToAction("Index");
+            ClientViewModel viewModel = new ClientViewModel()
+            {
+                Id = client.Id,
+                Name = client.Name,
+                SurName = client.SurName,
+                Email = client.Email,
+                Phone = client.Phone,
+                BirthDate = client.BirthDate,
+                Gender = client.Gender,
+                PhotoFirst = client.PhotoFirst,
+                PhotoLast = client.PhotoLast
+            };
+            return View(viewModel);
         }
 
-        [HttpGet]
-        [ActionName("Delete")]
-        public async Task<IActionResult> ConfirmDelete(int? id)
+        // GET: Clients/Create
+        public ActionResult Create()
         {
-            if (id != null)
-            {
-                Customer customer = await db.Customers.FirstOrDefaultAsync(p => p.Id == id);
-                if (customer != null)
-                    return View(customer);
-            }
-            return NotFound();
+            ClientViewModel viewModel = new ClientViewModel();
+            return View(viewModel);
         }
 
+        // POST: Clients/Create
         [HttpPost]
-        public async Task<IActionResult> Delete(int? id)
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(ClientViewModel clientViewModel)
         {
-            if (id != null)
+            if (ModelState.IsValid)
             {
-                Customer customer = new Customer { Id = id.Value };
-                db.Entry(customer).State = EntityState.Deleted;
-                await db.SaveChangesAsync();
+                Client client = new Client()
+                {
+                    Id = clientViewModel.Id,
+                    Name = clientViewModel.Name,
+                    SurName = clientViewModel.SurName,
+                    Email = clientViewModel.Email,
+                    Phone = clientViewModel.Phone,
+                    BirthDate = clientViewModel.BirthDate,
+                    Gender = clientViewModel.Gender,
+                    PhotoFirst = clientViewModel.PhotoFirst,
+                    PhotoLast = clientViewModel.PhotoLast
+                };
+
+                db.Clients.Add(client);
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return NotFound();
-        }*/
+
+            return View(clientViewModel);
+        }
+
+        // GET: Clients/Edit/5
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                //return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return NotFound();
+            }
+            Client client = db.Clients.Find(id);
+            if (client == null)
+            {
+                return NotFound();
+            }
+            ClientViewModel viewModel = new ClientViewModel()
+            {
+                Id = client.Id,
+                Name = client.Name,
+                SurName = client.SurName,
+                Email = client.Email,
+                Phone = client.Phone,
+                BirthDate = client.BirthDate,
+                Gender = client.Gender,
+                PhotoFirst = client.PhotoFirst,
+                PhotoLast = client.PhotoLast
+            };
+
+            return View(viewModel);
+        }
+
+        // POST: Clients/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(ClientViewModel clientViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                Client client = new Client()
+                {
+                    Id = clientViewModel.Id,
+                    Name = clientViewModel.Name,
+                    SurName = clientViewModel.SurName,
+                    Email = clientViewModel.Email,
+                    Phone = clientViewModel.Phone,
+                    BirthDate = clientViewModel.BirthDate,
+                    Gender = clientViewModel.Gender,
+                    PhotoFirst = clientViewModel.PhotoFirst,
+                    PhotoLast = clientViewModel.PhotoLast
+                };
+
+                db.Entry(client).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(clientViewModel);
+        }
+
+        // GET: Clients/Delete/5
+        //public ActionResult Delete(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        //return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //        return NotFound();
+        //    }
+        //    Client client = db.Clients.Find(id);
+        //    if (client == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    return View(client);
+        //}
+
+        // POST: Clients/Delete/5
+
+        [HttpDelete]
+        public void Delete(int id)
+        {
+            Client client = db.Clients.Find(id);
+            db.Clients.Remove(client);
+            db.SaveChanges();
+            return;
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        public ActionResult GetItems(string search)
+        {
+            var model = new ClientsViewModel();
+            var query = (IQueryable<Client>)db?.Clients;
+
+            if (!string.IsNullOrEmpty(search))
+            {
+                query = query.Where(g => g.Name.ToUpper().Contains(search.ToUpper()));
+            }
+            var clients = query.Select(s => new ClientViewModel(s)).ToList() ?? new List<ClientViewModel>();
+
+            model.Items = clients;
+
+            return PartialView("_Items", model);
+        }
     }
 }

@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[Paid]
 (
-	[Id] INT NOT NULL PRIMARY KEY, 
+	[Id] INT IDENTITY (1, 1) NOT NULL PRIMARY KEY, 
     [PaidSum] MONEY NOT NULL, 
     [Comment] NVARCHAR(MAX) NULL
 )

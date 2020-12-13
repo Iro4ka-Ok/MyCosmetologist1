@@ -1,0 +1,43 @@
+﻿@model IEnumerable<MyCosmetologist.ViewModel.ClientViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Усі Клієнти</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-secondary">Create New Client</a>
+    <input type="text" name="search" id="search" class="form-group col-sm-3" placeholder="Client Name" />
+    <input type="button" value="Search" class="btn btn-success" onclick="refreshGrid()" />
+</p>
+
+<div id="contentItem">
+</div>
+
+<script>
+    $(document).ready(function () {
+        refreshGrid();
+    })
+    function refreshGrid() {
+        $.ajax({
+            url: '@Url.Action("GetItems", "Client")' + "?search=" + $("#search").val(),
+            method: "GET",
+            success: function (partialViewData) {
+                $('#contentItem').html(partialViewData);
+            }
+        });
+    }
+    function deleteClient(id) {
+        if (confirm("Delete Record?") == true) {
+            alert("Now deleting");
+            $.ajax({
+                url: '@Url.Action("Delete", "Client")' + "?id=" + id,
+                type: 'DELETE',
+                success: function () {
+                    refreshGrid();
+                }
+            });
+        }
+    }
+</script>

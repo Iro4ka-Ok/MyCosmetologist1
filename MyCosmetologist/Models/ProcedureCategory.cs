@@ -18,5 +18,10 @@ namespace MyCosmetologist.Models
         public string Description { get; set; }
         public ICollection<Procedure> Procedures { get; set; }
 
+        public ProcedureCategory()
+        {
+            Procedures = new List<Procedure>();
+        }
+
     }
 }

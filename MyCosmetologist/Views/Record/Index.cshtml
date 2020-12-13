@@ -1,0 +1,62 @@
+﻿@model IEnumerable<MyCosmetologist.ViewModel.RecordViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Усі Записи Клієнтів</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-secondary">Create New</a>
+    <input type="text" name="search" id="search" class="form-group col-sm-3" placeholder="Client Name" />
+    <input type="button" value="Search" class="btn btn-success" onclick="search()" />
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Client)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Procedure)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DayRecord)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TimeRecord)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Comment)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Client.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Procedure.Name)
+            <td>
+                @Html.DisplayFor(modelItem => item.DayRecord)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TimeRecord)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Comment)
+            </td>
+            <td></td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id" style="color: gray"><i class="fas fa-pencil-alt fa-lg" style="margin-right: 20px"></i></a>
+                <a asp-action="Details" asp-route-id="@item.Id" style="color: gray"><i class="fas fa-info-circle fa-lg" style="margin-right: 20px"></i></a>
+                <a asp-action="Delete" asp-route-id="@item.Id" style="color: gray" onclick="confirmDelete()"><i class="fas fa-trash-alt fa-lg"></i></a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

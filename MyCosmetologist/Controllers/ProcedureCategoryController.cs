@@ -49,13 +49,9 @@ namespace MyCosmetologist.Controllers
             return View(viewModel);
         }
 
-        /*private ActionResult HttpNotFound()
-        {
-            throw new NotImplementedException();
-        }*/
 
         // GET: Category/Create
-        public ActionResult CreateCategoryProcedure()
+        public ActionResult Create()
         {
             ProcedureCategoryViewModel viewModel = new ProcedureCategoryViewModel();
             return View(viewModel);
@@ -64,13 +60,13 @@ namespace MyCosmetologist.Controllers
         // POST: Category/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateCategoryProcedure([Bind("Id,Name,Description")] ProcedureCategoryViewModel categoryViewModel)
+        public ActionResult Create(ProcedureCategoryViewModel categoryViewModel)
         {
+            ProcedureCategory category = null;
             if (ModelState.IsValid)
             {
-                ProcedureCategory category = new ProcedureCategory()
+                category = new ProcedureCategory()
                 {
-                    Id = categoryViewModel.Id,
                     Name = categoryViewModel.Name,
                     Description = categoryViewModel.Description
                 };
@@ -81,6 +77,84 @@ namespace MyCosmetologist.Controllers
             }
 
             return View(categoryViewModel);
+        }
+
+        // GET: Categories/Edit/5
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ProcedureCategory category = db.ProcedureCategories.Find(id);
+            if (category == null)
+            {
+                return NotFound();
+            }
+            ProcedureCategoryViewModel viewModel = new ProcedureCategoryViewModel()
+            {
+                Id = category.Id,
+                Name = category.Name,
+                Description = category.Description
+            };
+
+            return View(viewModel);
+        }
+
+        // POST: Categories/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(ProcedureCategoryViewModel categoryViewModel)
+        {
+            ProcedureCategory category = null;
+            if (ModelState.IsValid)
+            {
+                category = new ProcedureCategory()
+                {
+                    Id = category.Id,
+                    Name = category.Name,
+                    Description = category.Description
+                };
+
+                db.Entry(category).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(categoryViewModel);
+        }
+
+        // GET: Categories/Delete/5
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ProcedureCategory category = db.ProcedureCategories.Find(id);
+            if (category == null)
+            {
+                return NotFound();
+            }
+            return View(category);
+        }
+
+        // POST: Categories/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            ProcedureCategory category = db.ProcedureCategories.Find(id);
+            db.ProcedureCategories.Remove(category);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
 }

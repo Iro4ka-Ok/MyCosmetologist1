@@ -8,25 +8,25 @@ namespace MyCosmetologist.Models
 {
     public class Client
     {
+        [Key]
         public int Id { get; set; }
-        //[Required]
-        //[Display(Name = "Name")]
+        [StringLength(250)]
         public string Name { get; set; }
-        //[Required]
-        //[Display(Name = "Surname")]
+        [StringLength(250)]
         public string SurName { get; set; }
-        //[Required]
-        //[Display(Name = "Email")]
-        //[EmailAddress(ErrorMessage = "Некорректный адрес")]
         public string Email { get; set; }
-        //[Required]
-        //[Display(Name = "Phone")]
         public string Phone { get; set; }
-        //[Required]
-        //[DataType(DataType.Date)]
-        //[DisplayFormat(DataFormatString = "{0:dd'/'MM'/'yyyy}", ApplyFormatInEditMode = true)]
-        //[Display(Name = "Date Of Birth")]
         public DateTime BirthDate { get; set; }
+        [StringLength(10)]
         public string Gender { get; set; }
+        public string PhotoFirst { get; set; }
+        public string PhotoLast { get; set; }
+
+        public ICollection<Record> Records { get; set; }
+
+        public Client()
+        {
+            Records = new List<Record>();
+        }
     }
 }
