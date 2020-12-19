@@ -13,21 +13,21 @@ namespace MyCosmetologist.Web.Models
                     new Procedure
                     {
                         Name = "First Procedure",
-                        Preparat = "Qwerty 1",
+                        //ProductId = 1,
                         Price = 600,
                         //ProcedureCategoryId = 1
                     },
                     new Procedure
                     {
                         Name = "Second Procedure",
-                        Preparat = "Qwerty 2",
+                        //Preparat = "Qwerty 2",
                         Price = 550,
                         //ProcedureCategoryId = 2
                     },
                     new Procedure
                     {
                         Name = "Third Procedure",
-                        Preparat = "Qwerty 3",
+                        //Preparat = "Qwerty 3",
                         Price = 500,
                         //ProcedureCategoryId = 1
                     }

@@ -16,7 +16,6 @@ namespace MyCosmetologist.Web.Mappers
             {
                 Id = dto.Id,
                 Name = dto.Name,
-                Preparat = dto.Preparat,
                 Price = dto.Price,
                 ProcedureCategoryId = dto.ProcedureCategoryId,
                 ProcedureCategoryName = dto.ProcedureCategoryName
@@ -34,7 +33,6 @@ namespace MyCosmetologist.Web.Mappers
             {
                 Id = viewModel.Id,
                 Name = viewModel.Name,
-                Preparat = viewModel.Preparat,
                 Price = viewModel.Price,
                 ProcedureCategoryId = viewModel.ProcedureCategoryId
             };

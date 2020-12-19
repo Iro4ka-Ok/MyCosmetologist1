@@ -1,0 +1,46 @@
+﻿@model IEnumerable<MyCosmetologist.Web.ViewModel.ProductViewModel>
+@{
+    ViewData["Title"] = "Index";
+
+}
+
+<h1>Усі Товари</h1>
+
+<p>
+    <a style="margin: 3px" class="btn btn-secondary" href="~/Product/Create">Створити Прдукт</a>
+    <a style="margin: 3px" class="btn btn-secondary" href="~/ProductCategory/Create">Створити Категорію</a>
+
+    <input type="text" name="search" id="search" class="form-group col-sm-3" placeholder="Product Name" />
+    <input type="button" value="Search" class="btn btn-success" onclick="refreshGrid()" />
+</p>
+
+<div id="contentItem">
+</div>
+
+<script>
+    $(document).ready(function () {
+        refreshGrid();
+    })
+    function deleteClient(id) {
+        if (confirm("Delete Record?") == true) {
+            alert("Now deleting");
+            $.ajax({
+                url: '@Url.Action("Delete", "Product")' + "?id=" + id,
+                type: 'DELETE',
+                success: function () {
+                    refreshGrid();
+                }
+            });
+        }
+    }
+    function refreshGrid() {
+        $.ajax({
+            url: '@Url.Action("GetItems", "Product")' + "?search=" + $("#search").val(),
+            method: "GET",
+            success: function (partialViewData) {
+                $('#contentItem').html(partialViewData);
+            }
+        });
+    }
+</script>
+

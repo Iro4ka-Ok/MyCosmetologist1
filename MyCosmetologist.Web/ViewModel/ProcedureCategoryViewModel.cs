@@ -20,14 +20,5 @@ namespace MyCosmetologist.Web.ViewModel
         public string Description { get; set; }
 
         public ICollection<Procedure> Procedures { get; set; }
-
-        public ProcedureCategoryViewModel() { }
-        public ProcedureCategoryViewModel(ProcedureCategory procedureCategory)
-        {
-            Id = procedureCategory.Id;
-            Name = procedureCategory.Name;
-            Description = procedureCategory.Description;
-            Procedures = procedureCategory.Procedures;
-        }
     }
 }

@@ -7,7 +7,5 @@
     [Phone] NVARCHAR(50) NOT NULL, 
     [BirthDate] DATE NOT NULL, 
     [Gender] NVARCHAR(50) NOT NULL, 
-    [PhotoFirst] NVARCHAR(MAX) NULL, 
-    [PhotoLast] NVARCHAR(MAX) NULL,
     CONSTRAINT [PK_[Clients] PRIMARY KEY NONCLUSTERED ([Id] ASC)
 )

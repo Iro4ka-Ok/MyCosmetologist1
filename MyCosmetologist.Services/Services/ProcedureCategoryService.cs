@@ -17,9 +17,29 @@ namespace MyCosmetologist.Services.Services
             _procedureCategoryRepository = procedureCategoryRepository;
         }
 
+        public async Task Add(ProcedureCategoryDto dto)
+        {
+            var entity = dto.MapToEntity();
+            await _procedureCategoryRepository.Add(entity);
+        }
+
         public async Task Delete(int id)
         {
             await _procedureCategoryRepository.Delete(id);
+        }
+
+        public async Task Edit(ProcedureCategoryDto dto)
+        {
+            var entity = await _procedureCategoryRepository.GetById(dto.Id);
+            if (entity == null)
+            {
+                return;
+            }
+
+            entity.Name = dto.Name;
+            entity.Description = dto.Description;
+
+            await _procedureCategoryRepository.Update(entity);
         }
 
         public async Task<ProcedureCategoryDto> Get(int id)

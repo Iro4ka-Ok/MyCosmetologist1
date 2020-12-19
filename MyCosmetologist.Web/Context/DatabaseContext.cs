@@ -3,9 +3,9 @@ using MyCosmetologist.Web.Models;
 
 namespace MyCosmetologist.Web.Context
 {
-    //public class DatabaseContext : DbContext
-    public class DatabaseContext: DbContext
+    public class DatabaseContext : DbContext
     {
+        public DbSet<Product> Products { get; set; }
         public DbSet<Procedure> Procedures { get; set; }
         public DbSet<ProcedureCategory> ProcedureCategories { get; set; }
         public DbSet<Order> Orders { get; set; }
@@ -33,5 +33,6 @@ namespace MyCosmetologist.Web.Context
                 modelBuilder.Entity(entityType.ClrType).ToTable(entityType.ClrType.Name);
             }
         }
+        //public DbSet<MyCosmetologist.Web.ViewModel.ProductViewModel> ProductViewModel { get; set; }
     }
 }

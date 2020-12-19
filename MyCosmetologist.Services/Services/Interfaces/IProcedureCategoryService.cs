@@ -6,7 +6,9 @@ namespace MyCosmetologist.Services.Services.Interfaces
 {
     public interface IProcedureCategoryService
     {
+        Task Add(ProcedureCategoryDto dto);
         Task Delete(int id);
+        Task Edit(ProcedureCategoryDto dto);
         Task<ProcedureCategoryDto> Get(int id);
         IList<ProcedureCategoryDto> GetItems(string search = "");
     }

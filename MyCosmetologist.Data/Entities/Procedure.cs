@@ -9,12 +9,12 @@ namespace MyCosmetologist.Data.Entities
         [Key]
         public int Id { get; set; }
         public string Name { get; set; }
-        public string Preparat { get; set; }
         public decimal Price { set; get; }
         public int ProcedureCategoryId { set; get; }
 
         [ForeignKey("ProcedureCategoryId")]
         public virtual ProcedureCategory ProcedureCategory { get; set; }
+
         public ICollection<Record> Records { get; set; }
 
         public Procedure()

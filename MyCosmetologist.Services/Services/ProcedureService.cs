@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using MyCosmetologist.Data.Repositories.Interfaces;
 using MyCosmetologist.Services.Dtos;
 using MyCosmetologist.Services.Mappers;
 using MyCosmetologist.Services.Services.Interfaces;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace MyCosmetologist.Services.Services
 {
@@ -38,7 +38,6 @@ namespace MyCosmetologist.Services.Services
             }
 
             entity.Name = dto.Name;
-            entity.Preparat = dto.Preparat;
             entity.Price = dto.Price;
             entity.ProcedureCategoryId = dto.ProcedureCategoryId;
 

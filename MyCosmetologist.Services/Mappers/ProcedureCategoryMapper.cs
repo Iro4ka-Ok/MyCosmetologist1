@@ -19,5 +19,18 @@ namespace MyCosmetologist.Services.Mappers
                 Description = entity.Description
             };
         }
+        public static ProcedureCategory MapToEntity(this ProcedureCategoryDto dto)
+        {
+            if (dto == null)
+            {
+                return null;
+            }
+
+            return new ProcedureCategory
+            {
+                Name = dto.Name,
+                Description = dto.Description
+            };
+        }
     }
 }

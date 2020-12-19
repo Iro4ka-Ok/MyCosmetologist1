@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using MyCosmetologist.Web.Models;
 
 namespace MyCosmetologist.Web.ViewModel
 {
@@ -28,25 +27,5 @@ namespace MyCosmetologist.Web.ViewModel
         [Required]
         [Display(Name = "Gender")]
         public string Gender { get; set; }
-        //[Required]
-        [Display(Name = "First Photo")]
-        public string PhotoFirst { get; set; }
-        //[Required]
-        [Display(Name = "Last Photo")]
-        public string PhotoLast { get; set; }
-
-        public ClientViewModel() { }
-        public ClientViewModel(Client client)
-        {
-            Id = client.Id;
-            Name = client.Name;
-            SurName = client.SurName;
-            Email = client.Email;
-            Phone = client.Phone;
-            BirthDate = client.BirthDate;
-            Gender = client.Gender;
-            PhotoFirst = client.PhotoFirst;
-            PhotoLast = client.PhotoLast;
-        }
     }
 }

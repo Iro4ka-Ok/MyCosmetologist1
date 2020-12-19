@@ -1,86 +1,149 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using MyCosmetologist.Web.Context;
-using MyCosmetologist.Web.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using MyCosmetologist.Services.Services.Interfaces;
+using MyCosmetologist.Web.Mappers;
 using MyCosmetologist.Web.ViewModel;
 
 namespace MyCosmetologist.Web.Controllers
 {
     public class RecordController : Controller
     {
-        private DatabaseContext db;
-        public RecordController(DatabaseContext context)
+        private readonly IRecordService _recordService;
+        private readonly IClientService _clientService;
+        private readonly IProcedureService _procedureService;
+        private readonly IProductService _productService;
+
+        public RecordController(IRecordService recordService,
+            IClientService clientService,
+            IProcedureService procedureService,
+            IProductService productService)
         {
-            db = context;
+            _recordService = recordService;
+            _clientService = clientService;
+            _procedureService = procedureService;
+            _productService = productService;
         }
         public ActionResult Index()
         {
-            var record = db?.Records?.AsEnumerable().Select(s => new RecordViewModel(s)).ToList() ?? new List<RecordViewModel>();
-            return View(record);
-            //return View();
+            return View();
         }
 
         // GET: Records/Details
-        public ActionResult Details(int? id)
+        public async Task<ActionResult> Details(int? id)
         {
-            if (id == null)
-            {
-                //return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                return NotFound();
-            }
-            Record record = db.Records.Find(id);
-            if (record == null)
+            if (!id.HasValue)
             {
                 return NotFound();
             }
-            RecordViewModel viewModel = new RecordViewModel()
+
+            var dto = await _recordService.Get(id.Value);
+            if (dto == null)
             {
-                Id = record.Id,
-                ClientId = record.ClientId,
-                ProcedureId = record.ProcedureId,
-                DayRecord = record.DayRecord,
-                TimeRecord = record.TimeRecord,
-                Comment = record.Comment,
-                Client = record.Client,
-                Procedure = record.Procedure
-            };
-            return View(viewModel);
+                return NotFound();
+            }
+
+            return View(dto.MapToViewModel());
         }
 
-        // GET: Clients/Create
+        // GET: Records/Create
         public ActionResult Create()
         {
-            RecordViewModel viewModel = new RecordViewModel();
-            return View(viewModel);
+            var clients = _clientService.GetItems();
+            ViewBag.ClientId = new SelectList(clients, "Id", "Name"); 
+
+            var procedures = _procedureService.GetItems();
+            ViewBag.ProcedureId = new SelectList(procedures, "Id", "Name");
+
+            var products = _productService.GetItems();
+            ViewBag.ProductId = new SelectList(products, "Id", "Name");
+
+            return View();
         }
 
         // POST: Records/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(RecordViewModel recordViewModel)
+        public async Task<ActionResult> Create(RecordViewModel recordViewModel)
         {
-            
             if (ModelState.IsValid)
             {
-                Record record = new Record()
-                {
-                    Id = recordViewModel.Id,
-                    ClientId = recordViewModel.ClientId,
-                    ProcedureId = recordViewModel.ProcedureId,
-                    DayRecord = recordViewModel.DayRecord,
-                    TimeRecord = recordViewModel.TimeRecord,
-                    Comment = recordViewModel.Comment,
-                    Client = recordViewModel.Client,
-                    Procedure = recordViewModel.Procedure
-                };
-
-                db.Records.Add(record);
-                db.SaveChanges();
+                await _recordService.Add(recordViewModel.MapToDto());
                 return RedirectToAction("Index");
             }
 
+            var clients = _clientService.GetItems();
+            ViewBag.ClientId = new SelectList(clients, "Id", "Name", recordViewModel.ClientId);
+
+            var procedures = _procedureService.GetItems();
+            ViewBag.ProcedureId = new SelectList(procedures, "Id", "Name", recordViewModel.ProcedureId);
+
+            var products = _productService.GetItems();
+            ViewBag.ProductId = new SelectList(products, "Id", "Name", recordViewModel.ProductId);
+
             return View(recordViewModel);
+        }
+
+        // GET: Records/Edit/5
+        public async Task<ActionResult> Edit(int? id)
+        {
+            if (!id.HasValue)
+            {
+                return NotFound();
+            }
+
+            var dto = await _recordService.Get(id.Value);
+            if (dto == null)
+            {
+                return NotFound();
+            }
+
+            var clients = _clientService.GetItems();
+            ViewBag.ClientId = new SelectList(clients, "Id", "Name", dto.ClientId);
+
+            var procedures = _procedureService.GetItems();
+            ViewBag.ProcedureId = new SelectList(procedures, "Id", "Name", dto.ProcedureId);
+
+            var products = _procedureService.GetItems();
+            ViewBag.ProductId = new SelectList(products, "Id", "Name", dto.ProductId);
+
+            return View(dto.MapToViewModel());
+        }
+
+        // POST: Records/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Edit(RecordViewModel recordViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                await _recordService.Edit(recordViewModel.MapToDto());
+                return RedirectToAction("Index");
+            }
+
+            var clients = _clientService.GetItems();
+            ViewBag.ClientId = new SelectList(clients, "Id", "Name", recordViewModel.ClientId);
+
+            var procedures = _procedureService.GetItems();
+            ViewBag.ProcedureId = new SelectList(procedures, "Id", "Name", recordViewModel.ProcedureId);
+
+            var products = _productService.GetItems();
+            ViewBag.ProductId = new SelectList(products, "Id", "Name", recordViewModel.ProductId);
+
+            return View(recordViewModel);
+        }
+
+
+        public ActionResult GetItems(string search)
+        {
+            var items = _recordService.GetItems(search).Select(g => g.MapToViewModel()).ToList();
+            var model = new RecordsViewModel
+            {
+                Items = items
+            };
+
+            return PartialView("_Items", model);
         }
     }
 }

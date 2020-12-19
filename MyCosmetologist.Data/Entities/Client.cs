@@ -14,8 +14,6 @@ namespace MyCosmetologist.Data.Entities
         public string Phone { get; set; }
         public DateTime BirthDate { get; set; }
         public string Gender { get; set; }
-        public string PhotoFirst { get; set; }
-        public string PhotoLast { get; set; }
 
         public ICollection<Record> Records { get; set; }
 

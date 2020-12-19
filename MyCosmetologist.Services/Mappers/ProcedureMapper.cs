@@ -16,7 +16,6 @@ namespace MyCosmetologist.Services.Mappers
             {
                 Id = entity.Id,
                 Name = entity.Name,
-                Preparat = entity.Preparat,
                 Price = entity.Price,
                 ProcedureCategoryId = entity.ProcedureCategoryId,
                 ProcedureCategoryName = entity.ProcedureCategory?.Name ?? string.Empty
@@ -32,8 +31,8 @@ namespace MyCosmetologist.Services.Mappers
 
             return new Procedure
             {
+                Id = dto.Id,
                 Name = dto.Name,
-                Preparat = dto.Preparat,
                 Price = dto.Price,
                 ProcedureCategoryId = dto.ProcedureCategoryId
             };

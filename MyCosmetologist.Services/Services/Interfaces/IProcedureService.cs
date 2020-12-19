@@ -10,6 +10,6 @@ namespace MyCosmetologist.Services.Services.Interfaces
         Task Delete(int id);
         Task Edit(ProcedureDto dto);
         Task<ProcedureDto> Get(int id);
-        IList<ProcedureDto> GetItems(string search);
+        IList<ProcedureDto> GetItems(string search = "");
     }
 }

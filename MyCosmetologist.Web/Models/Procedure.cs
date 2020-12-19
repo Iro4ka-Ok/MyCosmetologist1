@@ -8,10 +8,8 @@ namespace MyCosmetologist.Web.Models
     {
         [Key]
         public int Id { get; set; }
-        [StringLength(250)]
+        //[StringLength(250)]
         public string Name { get; set; }
-        [StringLength(250)]
-        public string Preparat { get; set; }
         public decimal Price { set; get; }
         public int ProcedureCategoryId { set; get; }
 

@@ -17,8 +17,8 @@ namespace MyCosmetologist.Web.Models
         public DateTime BirthDate { get; set; }
         [StringLength(10)]
         public string Gender { get; set; }
-        public string PhotoFirst { get; set; }
-        public string PhotoLast { get; set; }
+        //public string PhotoFirst { get; set; }
+        //public string PhotoLast { get; set; }
 
         public ICollection<Record> Records { get; set; }
 

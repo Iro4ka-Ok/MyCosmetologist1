@@ -6,36 +6,60 @@
 
 <h1>Усі Категорії</h1>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id" style="color: gray"><i class="fas fa-pencil-alt fa-lg" style="margin-right: 20px"></i></a> 
-                <a asp-action="Details" asp-route-id="@item.Id" style="color: gray"><i class="fas fa-info-circle fa-lg" style="margin-right: 20px"></i></a> 
-                <a asp-action="Delete" asp-route-id="@item.Id" style="color: gray"><i class="fas fa-trash-alt fa-lg"></i></a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+
 <p>
     <a asp-action="Create" class="btn btn-secondary">Create New</a>
+    <input type="text" name="search" id="search" class="form-group col-sm-3" placeholder="Category Name" />
+    <input type="button" value="Search" class="btn btn-success" onclick="refreshGrid()" />
 </p>
+
+<div id="contentItem">
+</div>
+
+<script>
+    $(document).ready(function () {
+        refreshGrid();
+    })
+    function deleteCategory(id) {
+        if (confirm("Delete Record?") == true) {
+            alert("Now deleting");
+            $.ajax({
+                url: '@Url.Action("Delete", "ProcedureCategory")' + "?id=" + id,
+                type: 'DELETE',
+                success: function () {
+                    refreshGrid();
+                }
+            });
+        }
+    }
+    function refreshGrid() {
+        $.ajax({
+            url: '@Url.Action("GetItems", "ProcedureCategory")' + "?search=" + $("#search").val(),
+            method: "GET",
+            success: function (partialViewData) {
+                $('#contentItem').html(partialViewData);
+            }
+        });
+    }
+</script>
+
+@*<script>
+    $(document).ready(function () {
+        $.ajax({
+            type: "GET",
+            url: '@Url.Action("GetItems", "ProcedureCategory")',
+            success: function (partialViewData) {
+                $('#contentItem').html(partialViewData);
+            }
+        });
+    })
+    function search() {
+        $.ajax({
+            url: '@Url.Action("GetItems", "ProcedureCategory")' +"?search="+ $("#search").val(),
+            method: "GET",
+            success: function (partialViewData) {
+                $('#contentItem').html(partialViewData);
+            }
+        });
+    }
+</script>*@

@@ -1,157 +1,128 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Net;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using MyCosmetologist.Web.Context;
-using MyCosmetologist.Web.Models;
+using MyCosmetologist.Services.Services.Interfaces;
+using MyCosmetologist.Web.Mappers;
 using MyCosmetologist.Web.ViewModel;
 
 namespace MyCosmetologist.Web.Controllers
 {
     public class ProcedureCategoryController : Controller
     {
-        private readonly DatabaseContext db;
+        private readonly IProcedureCategoryService _procedureCategoryService;
 
-        public ProcedureCategoryController(DatabaseContext context)
+        public ProcedureCategoryController(IProcedureCategoryService procedureCategoryService)
         {
-            db = context;
+            _procedureCategoryService = procedureCategoryService;
         }
 
-        // GET: category
-        public IActionResult Index()
+        // GET: Category
+        public ActionResult Index()
         {
-            var categories = db?.ProcedureCategories?.AsEnumerable().Select(s => new ProcedureCategoryViewModel(s)).ToList() ?? new List<ProcedureCategoryViewModel>();
-            return View(categories);
+            return View();
         }
-        public ActionResult Details(int? id)
+        // GET: Category/Details
+        public async Task<ActionResult> Details(int? id)
         {
-            if (id == null)
-            {
-                //return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                return NotFound();
-            }
-            ProcedureCategory category = db.ProcedureCategories.Find(id);
-            if (category == null)
+            if (!id.HasValue)
             {
                 return NotFound();
             }
-            ProcedureCategoryViewModel viewModel = new ProcedureCategoryViewModel()
-            {
-                Id = category.Id,
-                Name = category.Name,
-                Description = category.Description,
-                Procedures = category.Procedures
-            };
-            return View(viewModel);
-        }
 
+            var dto = await _procedureCategoryService.Get(id.Value);
+            if (dto == null)
+            {
+                return NotFound();
+            }
+
+            return View(dto.MapToViewModel());
+        }
 
         // GET: Category/Create
         public ActionResult Create()
         {
-            ProcedureCategoryViewModel viewModel = new ProcedureCategoryViewModel();
-            return View(viewModel);
+            return View();
         }
 
         // POST: Category/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(ProcedureCategoryViewModel categoryViewModel)
+        public async Task<ActionResult> Create(ProcedureCategoryViewModel procedureCategoryViewModel)
         {
-            ProcedureCategory category = null;
             if (ModelState.IsValid)
             {
-                category = new ProcedureCategory()
-                {
-                    Name = categoryViewModel.Name,
-                    Description = categoryViewModel.Description
-                };
-
-                db.ProcedureCategories.Add(category);
-                db.SaveChanges();
+                await _procedureCategoryService.Add(procedureCategoryViewModel.MapToDto());
                 return RedirectToAction("Index");
             }
 
-            return View(categoryViewModel);
+            return View(procedureCategoryViewModel);
         }
 
         // GET: Categories/Edit/5
-        public ActionResult Edit(int? id)
+        public async Task<ActionResult> Edit(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            ProcedureCategory category = db.ProcedureCategories.Find(id);
-            if (category == null)
+            if (!id.HasValue)
             {
                 return NotFound();
             }
-            ProcedureCategoryViewModel viewModel = new ProcedureCategoryViewModel()
-            {
-                Id = category.Id,
-                Name = category.Name,
-                Description = category.Description
-            };
 
-            return View(viewModel);
+            var dto = await _procedureCategoryService.Get(id.Value);
+            if (dto == null)
+            {
+                return NotFound();
+            }
+
+            return View(dto.MapToViewModel());
         }
 
         // POST: Categories/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(ProcedureCategoryViewModel categoryViewModel)
+        public async Task<ActionResult> Edit(ProcedureCategoryViewModel procedureCategoryViewModel)
         {
-            ProcedureCategory category = null;
             if (ModelState.IsValid)
             {
-                category = new ProcedureCategory()
-                {
-                    Id = category.Id,
-                    Name = category.Name,
-                    Description = category.Description
-                };
-
-                db.Entry(category).State = EntityState.Modified;
-                db.SaveChanges();
+                await _procedureCategoryService.Edit(procedureCategoryViewModel.MapToDto());
                 return RedirectToAction("Index");
             }
-            return View(categoryViewModel);
+
+            return View(procedureCategoryViewModel);
         }
 
         // GET: Categories/Delete/5
-        public ActionResult Delete(int? id)
+        public async Task<ActionResult> Delete(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            ProcedureCategory category = db.ProcedureCategories.Find(id);
-            if (category == null)
+            if (!id.HasValue)
             {
                 return NotFound();
             }
-            return View(category);
+
+            var dto = await _procedureCategoryService.Get(id.Value);
+            if (dto == null)
+            {
+                return NotFound();
+            }
+
+            return View(dto.MapToViewModel());
         }
 
-        // POST: Categories/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        // Delete: Categories/Delete/5
+        [HttpDelete]
+        //[ValidateAntiForgeryToken]
+        public async Task Delete(int id)
         {
-            ProcedureCategory category = db.ProcedureCategories.Find(id);
-            db.ProcedureCategories.Remove(category);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            await _procedureCategoryService.Delete(id);
         }
-        protected override void Dispose(bool disposing)
+
+        public ActionResult GetItems(string search)
         {
-            if (disposing)
+            var items = _procedureCategoryService.GetItems(search).Select(g => g.MapToViewModel()).ToList();
+            var model = new ProcedureCategoriesViewModel
             {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
+                Items = items
+            };
+
+            return PartialView("_Items", model);
         }
     }
 }

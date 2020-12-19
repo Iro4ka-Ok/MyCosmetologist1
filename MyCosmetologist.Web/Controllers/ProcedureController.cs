@@ -85,11 +85,11 @@ namespace MyCosmetologist.Web.Controllers
             
             var procedureCategories = _procedureCategoryService.GetItems();
             ViewBag.ProcedureCategoryId = new SelectList(procedureCategories, "Id", "Name", dto.ProcedureCategoryId);
-            
+
             return View(dto.MapToViewModel());
         }
 
-        // POST: Animals/Edit/5
+        // POST: Procedures/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(ProcedureViewModel procedureViewModel)
@@ -102,7 +102,7 @@ namespace MyCosmetologist.Web.Controllers
 
             var procedureCategories = _procedureCategoryService.GetItems();
             ViewBag.ProcedureCategoryId = new SelectList(procedureCategories, "Id", "Name", procedureViewModel.ProcedureCategoryId);
-            
+
             return View(procedureViewModel);
         }
 
@@ -111,7 +111,6 @@ namespace MyCosmetologist.Web.Controllers
         {
             if (!id.HasValue)
             {
-                //return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 return NotFound();
             }
 
