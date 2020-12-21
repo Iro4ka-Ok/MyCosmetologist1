@@ -8,7 +8,6 @@
 
 <p>
     <a asp-action="Create" class="btn btn-secondary">Створити новий запис</a>
-    @*<a asp-action="#" class="btn btn-secondary">Виконані записи</a>*@
     <a asp-action="#" class="btn btn-secondary">Усі записи</a>
     <input type="text" name="search" id="search" class="form-group col-sm-3" placeholder="Client Name" />
     <input type="button" value="Search" class="btn btn-success" onclick="refreshGrid()" />
@@ -17,6 +16,13 @@
 
 <div id="contentItem">
 </div>
+
+<div>
+    <input type="button" value="Previous" />
+    <input type="button" value="Next" />
+</div>
+
+
 
 <script>
     $(document).ready(function () {
@@ -36,7 +42,7 @@
     }
     function refreshGrid() {
         $.ajax({
-            url: '@Url.Action("GetItems", "Record")' + "?search=" + $("#search").val(),
+            url: '@Url.Action("GetItems", "Record")' + "&pageSize=2" + "&pageNumber=2" + "?search=" + $("#search").val(),
             method: "GET",
             success: function (partialViewData) {
                 $('#contentItem').html(partialViewData);

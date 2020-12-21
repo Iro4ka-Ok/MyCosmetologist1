@@ -53,20 +53,23 @@ namespace MyCosmetologist.Services.Services
             return (await _recordRepository.GetById(id)).MapToDto();
         }
         
-        public IList<RecordDto> GetItems(string search)
+        public IList<RecordDto> GetItems(int pageSize, int pageNumber, string search)
         {
-        var query = _recordRepository.GetAllQueryable();
-        if (!string.IsNullOrEmpty(search))
-        {
-            query = query.Where(g => g.Client.Name.ToUpper().Contains(search.ToUpper()));
-        }
+            var query = _recordRepository.GetAllQueryable();
 
-        return query.Include(a => a.Client)
-            .Include(a => a.Procedure)
-            .Include(a => a.Product)
-            .ToList()
-            .Select(s => s.MapToDto())
-            .ToList();
-        }
+            if (!string.IsNullOrEmpty(search))
+            {
+                query = query.Where(g => g.Client.Name.ToUpper().Contains(search.ToUpper()));
+            }
+
+            return query.Include(a => a.Client)
+                .Include(a => a.Procedure)
+                .Include(a => a.Product)
+                .Skip((pageSize * pageNumber) - pageSize)
+                .Take(pageSize)
+                .ToList()
+                .Select(s => s.MapToDto())
+                .ToList();
+            }
     }
 }

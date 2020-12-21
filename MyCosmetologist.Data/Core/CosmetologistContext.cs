@@ -5,13 +5,13 @@ namespace MyCosmetologist.Data.Core
 {
     public class CosmetologistContext : DbContext
     {
+        public DbSet<Credit> Credits { get; set; }
+        public DbSet<Client> Clients { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<Product> Products { get; set; }
         public DbSet<Procedure> Procedures { get; set; }
         public DbSet<ProcedureCategory> ProcedureCategories { get; set; }
-        public DbSet<Order> Orders { get; set; }
-        public DbSet<Client> Clients { get; set; }
         public DbSet<Record> Records { get; set; }
-        public DbSet<Credit> Credits { get; set; }
-        public DbSet<Product> Products { get; set; }
 
         public CosmetologistContext(DbContextOptions<CosmetologistContext> options) : base(options)
         {

@@ -25,6 +25,7 @@ namespace MyCosmetologist.Web.Controllers
             _procedureService = procedureService;
             _productService = productService;
         }
+
         public ActionResult Index()
         {
             return View();
@@ -135,9 +136,9 @@ namespace MyCosmetologist.Web.Controllers
         }
 
 
-        public ActionResult GetItems(string search)
+        public ActionResult GetItems(int pageSize, int pageNumber, string search)
         {
-            var items = _recordService.GetItems(search).Select(g => g.MapToViewModel()).ToList();
+            var items = _recordService.GetItems(pageSize, pageNumber, search).Select(g => g.MapToViewModel()).ToList();
             var model = new RecordsViewModel
             {
                 Items = items

@@ -20,7 +20,6 @@ namespace MyCosmetologist.Web
                 try
                 {
                     var context = services.GetRequiredService<DatabaseContext>();
-                    SampleData.Initialize(context);
                 }
                 catch (Exception ex)
                 {
