@@ -34,7 +34,8 @@ namespace MyCosmetologist.Web.ViewModel
         [Display(Name = "Категорія")]
         public string ProductCategoryName { get; set; }
 
-        [DisplayName("Категорія")]
+        [DisplayName("Термін придатності")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd-MM-yyyy}")]
         public DateTime ExpirationDate { get; set; }
     }
 }

@@ -9,7 +9,7 @@ namespace MyCosmetologist.Web.ViewModel
         //[Required]
         //[DataType(DataType.Date)]
         //[DisplayFormat(DataFormatString = "{dddd'/'MM}", ApplyFormatInEditMode = true)]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy hh:mm}")]
+        //[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd-MM-yyyy hh:mm}")]
         [Display(Name = "Дата і Час")]
         public DateTime DayRecord { get; set; }
 
@@ -29,6 +29,7 @@ namespace MyCosmetologist.Web.ViewModel
         public decimal Volume { get; set; }
 
         [Display(Name = "Ціна")]
+        [DisplayFormat(DataFormatString = "{0:c}")]
         public decimal Prise { get; set; }
 
         [Display(Name = "Коментар")]

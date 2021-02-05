@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using MyCosmetologist.Services.Dtos;
 using MyCosmetologist.Services.Services.Interfaces;
 using MyCosmetologist.Web.Mappers;
 using MyCosmetologist.Web.ViewModel;
@@ -135,16 +136,36 @@ namespace MyCosmetologist.Web.Controllers
             return View(recordViewModel);
         }
 
+        // GET: Records/Delete/5
+        public async Task<ActionResult> Delete(int? id)
+        {
+            if (!id.HasValue)
+            {
+                return NotFound();
+            }
+
+            var dto = await _recordService.Get(id.Value);
+            if (dto == null)
+            {
+                return NotFound();
+            }
+
+            return View(dto.MapToViewModel());
+        }
+
+        // POST: Records/Delete/5
+        [HttpDelete]
+        public async Task<ActionResult> Delete(int id)
+        {
+            await _recordService.Delete(id);
+            return RedirectToAction("Index");
+        }
 
         public ActionResult GetItems(int pageSize, int pageNumber, string search)
         {
-            var items = _recordService.GetItems(pageSize, pageNumber, search).Select(g => g.MapToViewModel()).ToList();
-            var model = new RecordsViewModel
-            {
-                Items = items
-            };
+            var dto = _recordService.GetItems(pageSize, pageNumber, search);
 
-            return PartialView("_Items", model);
+            return PartialView("_Items", dto.MapToViewModel()); 
         }
     }
 }

@@ -1,16 +1,16 @@
-﻿@model IEnumerable<MyCosmetologist.Web.ViewModel.RecordViewModel>
+﻿@model MyCosmetologist.Web.ViewModel.RecordViewModel
 
 @{
     ViewData["Title"] = "Index";
 }
 
 <h1>Усі Записи Клієнтів</h1>
-
 <p>
     <a asp-action="Create" class="btn btn-secondary">Створити новий запис</a>
     <a asp-action="#" class="btn btn-secondary">Усі записи</a>
-    <input type="text" name="search" id="search" class="form-group col-sm-3" placeholder="Client Name" />
-    <input type="button" value="Search" class="btn btn-success" onclick="refreshGrid()" />
+    <input type="date" autocomplete="off" datetimefield" id="datepicker">
+    <input type="text" name="search" id="search" class="form-group col-sm-3" placeholder="Ім'я Клієнта" />
+    <input type="button" value="Пошук" class="btn btn-success" onclick="refreshGrid()" />
 
 </p>
 
@@ -18,16 +18,20 @@
 </div>
 
 <div>
-    <input type="button" value="Previous" />
-    <input type="button" value="Next" />
+    <input type="button" class="btn btn-secondary" value="Попередня" onclick="previous()" />
+    <input type="button" class="btn btn-secondary" value="Наступна" onclick="next()" />
+
 </div>
 
-
-
 <script>
+    var pageNumber = 1;
+    var pageSize = 10;
+    var totalPages;
+
     $(document).ready(function () {
         refreshGrid();
     })
+
     function deleteRecord(id) {
         if (confirm("Delete Record?") == true) {
             alert("Now deleting");
@@ -40,14 +44,62 @@
             });
         }
     }
+
+    function myDatepicker() {
+        $("#datepicker").datepicker({
+            dateFormat: "dd.mm.yyyy",
+            changeManth: true,
+            changeYear: true,
+            buttonText: "<i class='fas fa-calendar'></i>"
+        });
+    }
+
+    function languagesDatepicker(global, factory) {
+        typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('jquery')) :
+            typeof define === 'function' && define.amd ? define(['jquery'], factory) :
+                (factory(global.jQuery));
+    } (this, (function ($) {
+        'use strict';
+
+        $.fn.datepicker.languages['uk-UA'] = {
+            format: 'dd.mm.YYYY',
+            days: ['Неділя', 'Понеділок', 'Вівторок', 'Середа', 'Четвер', 'П\'ятниця', 'Субота'],
+            daysShort: ['Нд', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
+            daysMin: ['Нд', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
+            months: ['Січень', 'Лютий', 'Березень', 'Квітень', 'Травень', 'Червень', 'Липень', 'Серпень', 'Вересень', 'Жовтень', 'Листопад', 'Грудень'],
+            monthsShort: ['Січ', 'Лют', 'Бер', 'Кві', 'Тра', 'Чер', 'Лип', 'Сер', 'Вер', 'Жов', 'Лис', 'Гру'],
+            weekStart: 1,
+            startView: 0,
+            yearFirst: false,
+            yearSuffix: ''
+        };
+    }))
+
+    function next() {
+        if (pageNumber < totalPages)
+        {
+            pageNumber++;
+            refreshGrid()
+        }
+    }
+    function previous() {
+        if (pageNumber !== 1)
+        {
+            pageNumber--;
+            refreshGrid()
+        }
+    }
+
     function refreshGrid() {
         $.ajax({
-            url: '@Url.Action("GetItems", "Record")' + "&pageSize=2" + "&pageNumber=2" + "?search=" + $("#search").val(),
+            url: '@Url.Action("GetItems", "Record")' + "?pagesize=" + pageSize + "&pageNumber=" + pageNumber + "&search=" + $("#search").val(),
             method: "GET",
             success: function (partialViewData) {
-                $('#contentItem').html(partialViewData);
+            $('#contentItem').html(partialViewData);
             }
         });
     }
+
+
 </script>
 

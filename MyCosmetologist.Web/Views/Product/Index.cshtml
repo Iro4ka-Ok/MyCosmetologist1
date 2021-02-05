@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MyCosmetologist.Web.ViewModel.ProductViewModel>
+﻿@model MyCosmetologist.Web.ViewModel.ProductViewModel
 @{
     ViewData["Title"] = "Index";
 
@@ -7,7 +7,7 @@
 <h1>Усі Товари</h1>
 
 <p>
-    <a style="margin: 3px" class="btn btn-secondary" href="~/Product/Create">Створити Прдукт</a>
+    <a asp-action="Create" style="margin: 3px" class="btn btn-secondary">Створити Продукт</a>
     <a style="margin: 3px" class="btn btn-secondary" href="~/ProductCategory/Create">Створити Категорію</a>
 
     <input type="text" name="search" id="search" class="form-group col-sm-3" placeholder="Product Name" />

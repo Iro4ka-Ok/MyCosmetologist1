@@ -1,0 +1,64 @@
+﻿@model MyCosmetologist.Web.ViewModel.RecordViewModel
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Детальніше</h1>
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            День та час запису
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DayRecord)
+        </dd>
+        <dt class="col-sm-2">
+            Ім'я кліента
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ClientId)
+        </dd>
+        <dt class="col-sm-2">
+            Процедура
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ProcedureId)
+        </dd>
+        <dt class="col-sm-2">
+            Препарат
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ProductId)
+        </dd>
+        <dt class="col-sm-2">
+            Об'єм
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Volume)
+        </dd>
+        <dt class="col-sm-2">
+            Ціна
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Prise)
+        </dd>
+        <dt class="col-sm-2">
+            Коментар
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Comment)
+        </dd>
+        <dt class="col-sm-2">
+            Результат
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Result)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" class="btn btn-warning" asp-route-id="@Model.Id">Редагувати</a> |
+    <a asp-action="Index" class="btn btn-secondary">Повернутись</a>
+</div>
+

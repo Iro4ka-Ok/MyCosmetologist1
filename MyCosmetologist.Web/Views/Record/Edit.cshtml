@@ -13,8 +13,8 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
-                <label asp-for="DayRecord" class="control-label"></label>
-                <input asp-for="DayRecord" class="form-control" />
+                <label asp-for="DayRecord" class="control-label" ></label>
+                <input asp-for="DayRecord" type="date" asp-format="{0:dd-MM-yyyy hh:mm}" class="form-control" />
                 <span asp-validation-for="DayRecord" class="text-danger"></span>
             </div>
             <div class="form-group">

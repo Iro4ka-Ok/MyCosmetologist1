@@ -13,6 +13,10 @@ namespace MyCosmetologist.Data
             services.AddScoped<IContextFactory, ContextFactory>(provider => new ContextFactory(connectionString));
 
             services.AddTransient<IClientRepository, ClientRepository>();
+            services.AddTransient<ICreditRepository, CreditRepository>();
+            services.AddTransient<IDepositRepository, DepositRepository>();
+            services.AddTransient<IOrderRepository, OrderRepository>();
+            services.AddTransient<IPaidRepository, PaidRepository>();
             services.AddTransient<IProcedureCategoryRepository, ProcedureCategoryRepository>();
             services.AddTransient<IProcedureRepository, ProcedureRepository>();
             services.AddTransient<IProductCategoryRepository, ProductCategoryRepository>();

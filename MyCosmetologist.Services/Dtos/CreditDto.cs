@@ -1,10 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace MyCosmetologist.Data.Entities
+﻿namespace MyCosmetologist.Services.Dtos
 {
-    public class Credit
+    public class CreditDto
     {
-        [Key]
         public int Id { get; set; }
         public ushort CreditSum { get; set; }
         public string Comment { get; set; }

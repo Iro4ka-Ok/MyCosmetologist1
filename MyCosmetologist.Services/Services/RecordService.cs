@@ -3,6 +3,7 @@ using MyCosmetologist.Data.Repositories.Interfaces;
 using MyCosmetologist.Services.Dtos;
 using MyCosmetologist.Services.Mappers;
 using MyCosmetologist.Services.Services.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -52,17 +53,20 @@ namespace MyCosmetologist.Services.Services
         {
             return (await _recordRepository.GetById(id)).MapToDto();
         }
-        
-        public IList<RecordDto> GetItems(int pageSize, int pageNumber, string search)
+
+        public RecordsDto GetItems(int pageSize, int pageNumber, string search)
         {
+            pageSize = 3;
             var query = _recordRepository.GetAllQueryable();
 
             if (!string.IsNullOrEmpty(search))
             {
                 query = query.Where(g => g.Client.Name.ToUpper().Contains(search.ToUpper()));
             }
+            var _totalRecords = query.Count(); //kilkist zagalna
+            var _pageCount = (int)Math.Ceiling(_totalRecords / (double)pageSize);
 
-            return query.Include(a => a.Client)
+            var items = query.Include(a => a.Client)
                 .Include(a => a.Procedure)
                 .Include(a => a.Product)
                 .Skip((pageSize * pageNumber) - pageSize)
@@ -70,6 +74,12 @@ namespace MyCosmetologist.Services.Services
                 .ToList()
                 .Select(s => s.MapToDto())
                 .ToList();
-            }
+            var dto = new RecordsDto
+            {
+                pageItems = items,
+                pageCount = _pageCount
+            };
+            return dto;
+        }
     }
 }

@@ -21,7 +21,7 @@ namespace MyCosmetologist.Web.ViewModel
         public string Phone { get; set; }
         [Required]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd'/'MM'/'yyyy}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:dd'-'MM'-'yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Date Of Birth")]
         public DateTime BirthDate { get; set; }
         [Required]
